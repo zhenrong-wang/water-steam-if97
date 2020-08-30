@@ -23,11 +23,11 @@ int welcome(void)
 	printf("/* Range1: 273.15K<T<1073.15K     && P<=100MPa;                       */\n");
 	printf("/* Range2: 1073.15.15K<T<2273.15K && P<=50MPa;                        */\n");
 	printf("/* NOTE: For detailed information, please read the help doc.          */\n");
-	printf("/*       This version is valid before Apr 1st, 2017.                  */\n");
+	printf("/*       This version is valid before Apr 1st, 2029.                  */\n");
 	printf("/*       Any bugs found, please contact the author.                   */\n");
 	printf("/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */\n");
 	
-	if(timeinfo->tm_year<118||(timeinfo->tm_year==118&&timeinfo->tm_mon<3&&timeinfo->tm_mday<31))
+	if(timeinfo->tm_year<130||(timeinfo->tm_year==1308&&timeinfo->tm_mon<3&&timeinfo->tm_mday<31))
 	{
 		printf("\n# CURRENT DATE AND TIME: %s\n",asctime(timeinfo));
 		return 0;
