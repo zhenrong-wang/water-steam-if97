@@ -114,19 +114,22 @@ int main()
 			printf("\n! WARNING: Calculation error at line # %d of the input file.\n", i);
 			fprintf(fout,"%d\t-1\n",i);
 			continue;
+			type=-1;
 		}
 		else if(flag==1)
 		{
 			viscous=steam_visc_calc(prop.temp,prop.dens);
 			thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
 			fprintf(fout,"%d\t%.6lf*\t%.2lf*\t%.8lf\t%.6lf\t%8.4lf\t%8.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",i,prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond,prop.vapor_fraction);
-			fprintf(fout,"\t%.6lf**\t%.2lf*\t%.8lf\t%.6lf\t%8.4lf\t%8.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",prop_bkup.pressure/1e6,prop_bkup.temp,prop_bkup.spe_vol,prop_bkup.dens,prop_bkup.spe_energy/1000,prop_bkup.spe_enth/1000,prop_bkup.spe_entr/1000,prop_bkup.spe_h_v/1000,prop_bkup.spe_h_p/1000,prop_bkup.speed_sound,viscous,thcond,prop_bkup.vapor_fraction);		
+			fprintf(fout,"\t%.6lf**\t%.2lf*\t%.8lf\t%.6lf\t%8.4lf\t%8.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",prop_bkup.pressure/1e6,prop_bkup.temp,prop_bkup.spe_vol,prop_bkup.dens,prop_bkup.spe_energy/1000,prop_bkup.spe_enth/1000,prop_bkup.spe_entr/1000,prop_bkup.spe_h_v/1000,prop_bkup.spe_h_p/1000,prop_bkup.speed_sound,viscous,thcond,prop_bkup.vapor_fraction);
+			type=-1;
 		}
 		else
 		{
 			viscous=steam_visc_calc(prop.temp,prop.dens);
 			thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
 			fprintf(fout,"%d\t%.6lf\t%.2lf\t%.8lf\t%.6lf\t%.4lf\t%.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",i,prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond,prop.vapor_fraction);
+			type=-1;
 		}	
 	}
 	
