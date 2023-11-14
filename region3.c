@@ -1357,6 +1357,15 @@ void calcFG_DFG_hs(double* f, double* g, double* dfdd, double* dgdd, double* dfd
 //	printf("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ%lf,%lf,%lf,%lf,%lf,%lf\n",tau,del,phit(del,tau),phi(del,tau),spe_entr,*g);
 }
 
+int pres_tr_r3(double* pres, double temp, double dens)
+{
+	double tau,del;
+	tau=T_C/temp;
+	del=dens/r_c;
+	*pres=dens*GAS_CONST_STEAM*temp*del*phid(del,tau);
+	return 0;
+}
+
 int tr_hs_r3(double* temp, double* dens, double spe_enth, double spe_entr)
 {
 	double ff,gg,dfdd,dfdt,dgdd,dgdt,tau_prev,tau_nxt,del_prev,del_nxt;
@@ -1438,6 +1447,39 @@ int tr_hs_r3(double* temp, double* dens, double spe_enth, double spe_entr)
 	return -1;
 }
 
+void calcFd_DFd_th(double* fd, double* dfd, double temp, double spe_enth, double del)
+{
+	double tau=T_C/temp;
+	*fd=tau*phit(del,tau)+del*phid(del,tau)-spe_enth*tau/(GAS_CONST_STEAM*T_C);
+	*dfd=tau*phidt(del,tau)+del*phidd(del,tau)+phid(del,tau);
+}
+int dens_th_r3(double* dens, double temp, double spe_enth)
+{
+	double fd,dfd,del_ini,del_prev,del_nxt;
+	int i=0;
+	del_ini=1;
+	
+	calcFd_DFd_th(&fd,&dfd,temp,spe_enth,del_ini);
+	del_nxt=del_ini-fd/dfd;
+	do
+	{
+		del_prev=del_nxt;
+		calcFd_DFd_th(&fd,&dfd,temp,spe_enth,del_prev);
+		del_nxt=del_prev-fd/dfd;
+		i++;
+	}while(i<MAX_ITER_TIMES&&fabs(del_nxt-del_prev)>1e-8);
+	if(i==MAX_ITER_TIMES)
+	{
+		*dens=-1;
+		return -1;
+	} 
+	else
+	{
+		*dens=del_nxt*r_c;
+		return 0;
+	}
+}
+
 int pres_th_r3(double* pres, double temp, double spe_enth)
 {
 	double dens,del,tau;
@@ -1478,15 +1520,6 @@ int pt_hs_r3(double* pres, double* temp, double spe_enth, double spe_entr)
 	}
 	*pres=presr3;
 	*temp=tempr3;
-	return 0;
-}
-
-int pres_tr_r3(double* pres, double temp, double dens)
-{
-	double tau,del;
-	tau=T_C/temp;
-	del=dens/r_c;
-	*pres=dens*GAS_CONST_STEAM*temp*del*phid(del,tau);
 	return 0;
 }
 
@@ -1536,39 +1569,6 @@ int pres_tu_r3(double* pres, double temp, double spe_ener)
 	{
 		del=dens/r_c;
 		*pres=dens*GAS_CONST_STEAM*temp*del*phid(del,T_C/temp);
-		return 0;
-	}
-}
-
-void calcFd_DFd_th(double* fd, double* dfd, double temp, double spe_enth, double del)
-{
-	double tau=T_C/temp;
-	*fd=tau*phit(del,tau)+del*phid(del,tau)-spe_enth*tau/(GAS_CONST_STEAM*T_C);
-	*dfd=tau*phidt(del,tau)+del*phidd(del,tau)+phid(del,tau);
-}
-int dens_th_r3(double* dens, double temp, double spe_enth)
-{
-	double fd,dfd,del_ini,del_prev,del_nxt;
-	int i=0;
-	del_ini=1;
-	
-	calcFd_DFd_th(&fd,&dfd,temp,spe_enth,del_ini);
-	del_nxt=del_ini-fd/dfd;
-	do
-	{
-		del_prev=del_nxt;
-		calcFd_DFd_th(&fd,&dfd,temp,spe_enth,del_prev);
-		del_nxt=del_prev-fd/dfd;
-		i++;
-	}while(i<MAX_ITER_TIMES&&fabs(del_nxt-del_prev)>1e-8);
-	if(i==MAX_ITER_TIMES)
-	{
-		*dens=-1;
-		return -1;
-	} 
-	else
-	{
-		*dens=del_nxt*r_c;
 		return 0;
 	}
 }
