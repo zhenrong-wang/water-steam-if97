@@ -38,6 +38,7 @@ int main()
 	FILE* fout;
 	int type,flag,flag2,i=0;
 	double v1,v2;
+	char sep1,sep2,enter;
 
 	welcome();
 	
@@ -67,11 +68,14 @@ int main()
 	
 	fprintf(fout,"\tPRES\t\tTEMP\tSPE_VOL\t\tDENS\t\tu\t\th\t\ts\t\tCv\t\tCp\t\tVsound\t\tVisc\t\tLamd\tV_FRAC\n");
 	fprintf(fout,"\tMPa\t\tK\tm^3/kg\t\tkg/m^3\t\tkJ/kg\t\tkJ/kg\t\tkJ/(kg*K)\tkJ/(kg*K)\tkJ/(kg*K)\tm/s\t\tPa.s\t\tW/(m*K)\t-\n");
-	do
+	while(!feof(fin))
 	{
 		i++;
-		fscanf(fin,"%d,%lf,%lf",&type,&v1,&v2);
-		printf("\n%d\t%.8lf\t%.8lf",type,v1,v2);
+		fscanf(fin,"%d%c%lf%c%lf%c",&type,&sep1,&v1,&sep2,&v2,&enter);
+		if(type>0&&type<15)
+		{
+			printf("\n%d\t%.8lf\t%.8lf",type,v1,v2);
+		}
 	
 		if(type==1)
 			flag=steam_prop_calc_pt(v1,v2,&prop,&prop_bkup);
@@ -103,8 +107,6 @@ int main()
 			flag=steam_prop_calc_pt(calc_sat_pres(v1),v1,&prop,&prop_bkup);
 		else
 		{
-			printf("\n! WARNING: Calculation error at line # %d of the input file.\n", i);
-			fprintf(fout,"%d\t-1\n",i);
 			continue;
 		}
 					
@@ -127,7 +129,7 @@ int main()
 			thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
 			fprintf(fout,"%d\t%.6lf\t%.2lf\t%.8lf\t%.6lf\t%.4lf\t%.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",i,prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond,prop.vapor_fraction);
 		}	
-	}while(!feof(fin));	
+	}
 	
 	printf("\n\n# Calculation finished. Please check _properties.dat for results.\n# Press any key to exit.\n\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrong_w@163.com, K495458966(wechat).\n@ All rights reserved.\n");
 	fclose(fin);
