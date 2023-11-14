@@ -23,16 +23,10 @@ int welcome(void)
 	printf("/* Range1: 273.15K<T<1073.15K     && P<=100MPa;                       */\n");
 	printf("/* Range2: 1073.15.15K<T<2273.15K && P<=50MPa;                        */\n");
 	printf("/* NOTE: For detailed information, please read the help doc.          */\n");
-	printf("/*       This version is valid before Apr 1st, 2029.                  */\n");
 	printf("/*       Any bugs found, please contact the author.                   */\n");
 	printf("/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */\n");
-	
-	if(timeinfo->tm_year<130||(timeinfo->tm_year==1308&&timeinfo->tm_mon<3&&timeinfo->tm_mday<31))
-	{
-		printf("\n# CURRENT DATE AND TIME: %s\n",asctime(timeinfo));
-		return 0;
-	}
-    return -1;
+	printf("\n# CURRENT DATE AND TIME: %s\n",asctime(timeinfo));
+	return 0;
 }
 
 int main()
@@ -44,15 +38,6 @@ int main()
 	FILE* fout;
 	int type,flag,flag2,i=0;
 	double v1,v2;
-	
-	if(welcome()==-1)
-	{
-		printf("\n! FATAL ERROR: license expired. Please contact the author!\n! Please press any key to exit.\n");
-		printf("\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrong_w@163.com, K495458966(wechat).\n@ All rights reserved.\n");
-		fflush(stdin); 
-		getchar();
-		return -2;
-	}
 	
 	fin=fopen("_input.dat","r");
 	if(fin==NULL)
