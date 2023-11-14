@@ -33,6 +33,8 @@ You need a C compiler to build.
 1. Use git to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
 2. Build command example: `gcc ws-if97.c -o my-if97.exe -lm`
 
+Note: the `-lm` may not be valid for Windows or macOS. It is necessary for GNU/Linux distros.
+
 ## 3.2 Run
 
 - Copy the executable to a working directory. and open a terminal/command prompt
