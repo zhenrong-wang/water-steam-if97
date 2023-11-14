@@ -12,7 +12,7 @@ int welcome(void)
     timeinfo=localtime(&rtime);
 	printf("/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */\n");
 	printf("/*               Water and Steam Properties Calculation.              */\n");
-	printf("/*                          VERSION 1.2(beta)                         */\n");
+	printf("/*                    VERSION 1.2(beta) LICENSE: MIT                  */\n");
 	printf("/*                                                                    */\n");
 	printf("/* WANG ZHENRONG (Edison WANG), reserves all rights of this program.  */\n");
 	printf("/* Contacts: zhenrong_w@163.com(email).  K495458966(wechat).          */\n");
