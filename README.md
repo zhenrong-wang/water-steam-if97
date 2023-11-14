@@ -14,9 +14,7 @@ Purpose: Calculate the **very-high-resolution** thermophysical properties at giv
 
 License: MIT
 
-Technical Reference:
-
-- [IAPWS IF97](http://www.iapws.org/)
+Technical Reference: [IAPWS IF97](http://www.iapws.org/)
 
 # 3. How-To: Build, Run, and Use
 
@@ -70,16 +68,16 @@ Example: `1,1e5,3e2`
 
 Units:
 
-- Pressure: Pa
-- Temperature: K
-- Density: kg/m3
-- Specific Internal Energy: J/kg
-- Specific Enthalpy: J/kg
-- Specific Entropy: J/(kg.K)
+- Pressure(p): Pa
+- Temperature(t): K
+- Density(r): kg/m3
+- Specific Internal Energy(u): J/kg
+- Specific Enthalpy(h): J/kg
+- Specific Entropy(s): J/(kg.K)
 
 ## 3.4 Output
 
-The program writes out a file name '**_properties.dat**' in the working directory. 
+The program writes out a file named '**_properties.dat**' in the working directory. 
 
 # 4 Bugs and Communications
 
