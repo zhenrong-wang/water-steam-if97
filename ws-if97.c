@@ -38,6 +38,8 @@ int main()
 	FILE* fout;
 	int type,flag,flag2,i=0;
 	double v1,v2;
+
+	welcome();
 	
 	fin=fopen("_input.dat","r");
 	if(fin==NULL)
