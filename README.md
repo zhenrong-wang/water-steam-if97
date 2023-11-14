@@ -1,17 +1,91 @@
-# Water-and-Steam-Property-Calculation
-High-resolution water and steam property calculation, based on IAPWS-IF 97
+# Water and Steam Thermophysical Property Calculation
 
-Developer: Zhenrong WANG. zhenrongwang@live.com 
-WeChat: K495458966
+# 1. Background
 
+The thermophysical properties of water and steam are very important to researchers and engineers in various domains (energy, power, chemistry, materials ...).
 
-1.	本程序名为_WSPC.exe（Water and Steam Properties Calculation)，版本为1.1beta。技术参照：IAPWS IF97。http://www.iapws.org/
+Usually, researchers rely on the [NIST Refprop](https://www.nist.gov/srd/refprop) to calculate the properties. However, Refprop is commercial and not open-source. Therefore, I wrote this code to provide an alternative to the refprop.
 
-2.	程序功能是根据给定压力（p）、温度（t）、密度（r）、内能（u）、比焓（h）、比熵（s）六个参数以及干度（x）中的两个，计算出一系列物性参数。
+# 2. Brief Intro
 
-3.	程序输入文件：_input.dat。格式为每行三个数据，第一个为整数，表示计算类型（给定参数）：1-给定pt，2-给定pr，3-给定pu，4-给定ph，5-给定ps，6-给定tr，7-给定tu，8-给定th，9-给定ts，10-给定hs，11-给定px，12-给定tx（x为干度）。第二、三个参数为浮点数（可以使用C语言认可的科学计数法，如103=1.03e2。请见范例文件）。请务必注意参数顺序，严格按照ptruhs的先后顺序。各参数之间用逗号隔开。所有行之后不得再有任何空格、回车等。
+Program Name: Ultra-high-resolution Water and Steam Thermophysical Property Calculation
 
-4.	各个参数的单位需如下：p-Pa, t-K, r-kg/m3, u-J/kg, h-J/kg, s-J/(kg*K)，请务必注意。
+Purpose: Calculate the **very-high-resolution** thermophysical properties at given point(s)
 
-5.	程序输出文件：_properties.dat，格式见范例文件。
+License: MIT
+
+Technical Reference:
+
+- [IAPWS IF97](http://www.iapws.org/)
+
+# 3. How-To: Build, Run, and Use
+
+## 3.1 Build
+
+### 3.1.1 Prerequisites
+
+You need a C compiler to build. 
+
+- For Microsoft Windows users, [mingw](https://sourceforge.net/projects/mingw/) is a good choice
+- For GNU/Linux Distro or other *nix users, the [GNU Compiler Collections](https://gcc.gnu.org/), known as gcc, is a perfect one
+- For macOS users, [clang](https://clang.llvm.org/) is easy to install and use (brew is not needed to install clang on macOS).
+
+### 3.2 Build Guide
+
+1. Use git to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
+2. Build command example: `gcc ws-if97.c -o my-if97.exe`
+
+## 3.2 Run
+
+- Copy the executable to a working directory. and open a terminal/command prompt
+- Create an input file named '**_input.dat**' with some input data (See Section 3.3 below)
+- Run the executable in the terminal or command prompt by the command `./my-if97.exe` (for *nix users) or `.\my-if97.exe` (for Microsoft Windows users)
+
+## 3.3 Use
+
+For the **_input.dat** file, you need to input the data in lines. A single line refers to a point. Strict format:
+
+`POINT_TYPE(int),PARAM1(float/double),PARAM2 (float/double)` 
+
+**Please separate the params by a comma ','
+
+POINT_TYPE: 
+
+- 1 Pressure and Temperature
+- 2 Pressure and Density
+- 3 Pressure and Specific Internal Energy
+- 4 Pressure and Specific Enthalpy
+- 5 Pressure and Specific Entropy
+- 6 Temperature and Density
+- 7 Temperature and Specific Internal Energy
+- 8 Temperature and Specific Enthalpy
+- 9 Temperature and Specific Entropy
+- 10 Specific Enthalpy and Specific Entropy
+- 11 Pressure and Steam Dryness
+- 12 Temperature and Steam Dryness
+
+Example: `1,100000,300`
+
+Example: `1,1e5,3e2`
+
+Units:
+
+- Pressure: Pa
+- Temperature: K
+- Density: kg/m3
+- Specific Internal Energy: J/kg
+- Specific Enthalpy: J/kg
+- Specific Entropy: J/(kg.K)
+
+## 3.4 Output
+
+The program writes out a file name '**_properties.dat**' in the working directory. 
+
+# 4 Bugs and Communications
+
+This code was written years ago, and I didn't continuously develop it. Therefore, bugs may occur. 
+
+If you are interested in this project, please submit issues to this repo. I'd be glad to communicate on any issues.
+
+Or, you can also email me: zhenrongwang@live.com
 
