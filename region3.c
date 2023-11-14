@@ -1438,6 +1438,25 @@ int tr_hs_r3(double* temp, double* dens, double spe_enth, double spe_entr)
 	return -1;
 }
 
+int pres_th_r3(double* pres, double temp, double spe_enth)
+{
+	double dens,del,tau;
+	int flag;
+	flag=dens_th_r3(&dens,temp,spe_enth);
+
+	if(flag==-1)
+	{
+		return -1;
+	}
+	else
+	{
+		del=dens/r_c;
+		tau=T_C/temp;
+		*pres=dens*GAS_CONST_STEAM*temp*del*phid(del,tau);
+		return 0;
+	}
+}
+
 int pt_hs_r3(double* pres, double* temp, double spe_enth, double spe_entr)
 {
 	double tempr3,dens,presr3;
@@ -1550,25 +1569,6 @@ int dens_th_r3(double* dens, double temp, double spe_enth)
 	else
 	{
 		*dens=del_nxt*r_c;
-		return 0;
-	}
-}
-
-int pres_th_r3(double* pres, double temp, double spe_enth)
-{
-	double dens,del,tau;
-	int flag;
-	flag=dens_th_r3(&dens,temp,spe_enth);
-
-	if(flag==-1)
-	{
-		return -1;
-	}
-	else
-	{
-		del=dens/r_c;
-		tau=T_C/temp;
-		*pres=dens*GAS_CONST_STEAM*temp*del*phid(del,tau);
 		return 0;
 	}
 }
