@@ -37,9 +37,26 @@ Note: the `-lm` may not be valid for Windows or macOS. It is necessary for GNU/L
 
 ## 3.2 Run
 
-- Copy the executable to a working directory. and open a terminal/command prompt
-- Create an input file named '**_input.dat**' with some input data (See Section 3.3 below)
-- Run the executable in the terminal or command prompt by the command `./my-if97.exe` (for *nix users) or `.\my-if97.exe` (for Microsoft Windows users)
+### An Example for UNIX-like OS:
+
+Suppose the working directory is `/home/amber/water-steam/`
+
+Suppose the absolute path of the executable is `/home/amber/bin/my-if97.exe`
+
+- `$ cd /home/amber/water-steam/`
+- `$ vim _input.dat` # Create an input file named '**_input.dat**' with some input data (See Section 3.3 below)
+- `$ /home/amber/bin/my-if97.exe`
+
+### An Example for Windows:
+
+Suppose the working directory is `C:\Users\amber\water-steam\`
+
+Suppose the absolute path of the executable is `C:\Users\amber\bin\my-if97.exe`
+
+- Open a Command Prompt Window
+- `cd C:\Users\amber\water-steam\`
+- `notepad _input.dat`
+- `C:\Users\amber\bin\my-if97.exe`
 
 ## 3.3 Use
 
