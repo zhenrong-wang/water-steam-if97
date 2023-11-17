@@ -28,7 +28,7 @@ You need a C compiler to build.
 - For GNU/Linux Distro or other *nix users, the [GNU Compiler Collections](https://gcc.gnu.org/), known as gcc, is a perfect one
 - For macOS users, [clang](https://clang.llvm.org/) is easy to install and use (brew is not needed to install clang on macOS).
 
-### 3.2 Build Guide
+### 3.1.2 Build Guide
 
 1. Use git to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
 2. Build command example: `gcc ws-if97.c -o my-if97.exe -lm`
