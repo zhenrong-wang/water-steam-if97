@@ -8,11 +8,11 @@ Usually, researchers and engineers rely on the [NIST Refprop](https://www.nist.g
 
 # 2. Brief Intro
 
-Program Name: Ultra-high-resolution Water and Steam Thermophysical Property Calculation
+**Program Name**: Ultra-high-resolution Water and Steam Thermophysical Property Calculation
 
-Purpose: Calculate the **very-high-resolution** thermophysical properties at given point(s)
+**Purpose**: Calculate the **very-high-resolution** thermophysical properties at given point(s)
 
-License: MIT
+**License**: MIT
 
 Technical Reference: [IAPWS IF97](http://www.iapws.org/)
 
@@ -30,7 +30,7 @@ You need a C compiler to build.
 
 ### 3.1.2 Build Guide
 
-1. Use git to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
+1. Use `git` to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
 2. Build command example: `gcc ws-if97.c -o my-if97.exe -lm`
 
 Note: the `-lm` may not be valid for Windows or macOS. It is necessary for GNU/Linux distros.
