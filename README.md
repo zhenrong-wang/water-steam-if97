@@ -14,7 +14,7 @@ Usually, researchers and engineers rely on the [NIST Refprop](https://www.nist.g
 
 **License**: MIT
 
-Technical Reference: [IAPWS IF97](http://www.iapws.org/)
+**Technical Reference**: [IAPWS IF97](http://www.iapws.org/)
 
 # 3. How-To: Build, Run, and Use
 
