@@ -1,9 +1,15 @@
-#include<stdio.h>
-#include<math.h>
-#include "steam_property_calc.h"
-#define MAX_ITER_TIMES 900
-#define ERR_FOR_DENS 1e-12
-#define ZERO 1e-9
+/*
+ * This code is distributed under the license: MIT License
+ * Originally written by Zhenrong WANG
+ * mailto: zhenrongwang@live.com
+ */
+
+
+#include <stdio.h>
+#include <math.h>
+#include "if97_general.h"
+#include "region_calc.h"
+#include "region3.h"
 
 const double region3_coeff[40][4]={
 	1,0,0,0.10658070028513e1,
@@ -1624,8 +1630,6 @@ int pres_ts_r3(double* pres, double temp, double spe_entr)
 	}
 }
 
-
-
 int steam_prop_calc_r3(double pressure, double temp, steam_prop* p_prop)
 {
 	double tau=647.096/temp;
@@ -1664,102 +1668,3 @@ int steam_prop_calc_r3(double pressure, double temp, steam_prop* p_prop)
 	r3prop_calc_tr(temp,p_prop->dens,p_prop);	
 	return 0;
 }
-
-
-/*int main()
-{
-	double temp;
-	temp_ph_r3(&temp,0.255837018e8,0.186343019e7);
-	temp_ph_r3(&temp,0.222930643e8,0.237512401e7);
-	temp_ph_r3(&temp,0.783095639e8,0.225868845e7);
-}*/
-
-void print_prop(steam_prop *p_prop)
-{
-	printf("%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n",p_prop->pressure,p_prop->temp,p_prop->spe_vol,p_prop->dens,p_prop->spe_energy,p_prop->spe_entr,p_prop->spe_enth,p_prop->spe_h_v,p_prop->spe_h_p,p_prop->speed_sound);
-}
-/*int main()
-{
-	steam_prop p_prop;
-	double p=25.5837018e6;
-	double t=650;
-	double dens;
-	int flag;
-	int i,sr;
-	double tt,dd;
-	double pres[52]={
-		50,80,50,80,20,30,26,30,26,30,
-		26,30,23.6,24,23.6,24,23.6,24,23.5,24,
-		23,24,22.6,23,22.6,22.8,22.6,22.8,22.6,22.8,
-		22.6,22.8,21.1,21.8,21.1,21.8,19.1,20,17,20,
-		21.5,22.0,22.5,22.3,22.15,22.3,22.11,22.3,22.0,22.064,22.0,22.064,
-	};
-	double temp[52]={
-		630,670,710,750,630,650,656,670,661,675,
-		671,690,649,650,652,654,653,655,655,660,
-		660,670,646,646,648.6,649.3,649,649.7,649.1,649.9,
-		649.4,650.2,640,643,644,648,635,638,626,640,
-		644.6,646.1,648.6,647.9,647.5,648.1,648.0,649.0,646.84,647.05,646.89,647.15,
-	};
-	
-	for(i=0;i<52;i++)
-	{
-		sr=pt_subregion_calc1(pres[i]*1e6,temp[i]);
-		if(sr==-1)
-		{
-			sr=pt_subregion_calc2(pres[i]*1e6,temp[i]);
-		}
-		steam_prop_calc_r3(pres[i]*1e6,temp[i],&p_prop); 
-		printf("#%d  %.4lf\t%.4lf\t%.15lf\t%.15lf\n",sr,pres[i],temp[i],1/calc_vpt(sr,pres[i]*1e6,temp[i]),p_prop.dens);
-		if(i%2!=0)
-		printf("\n");		
-	}
-	
-	
-
-	flag=steam_prop_calc_r3(p,t,&p_prop);
-	print_prop(&p_prop);
-	flag=steam_prop_calc_r3(0.222930643e8,650,&p_prop);
-	print_prop(&p_prop);
-	
-	putchar('\n');
-	
-	tr_ph_r3(&tt,&dd,0.255837018e8,0.186343019e7);
-	r3prop_calc_tr(tt,dd,&p_prop);
-	print_prop(&p_prop);
-	putchar('\n');
-	tr_ps_r3(&tt,&dd,0.222930643e8,4854.38792);
-	r3prop_calc_tr(tt,dd,&p_prop);
-	print_prop(&p_prop);
-	putchar('\n');
-	tr_pu_r3(&tt,&dd,0.222930643e8,0.226365868e7);
-	r3prop_calc_tr(tt,dd,&p_prop);
-	print_prop(&p_prop);
-	putchar('\n');
-	tr_pu_r3(&tt,&dd,0.783095639e8,0.210206932e7);
-	r3prop_calc_tr(tt,dd,&p_prop);
-	print_prop(&p_prop);
-	
-	pres_tr_r3(&p,650,500);
-	printf("\n.........P. %.12lf\n",p);
-	pres_ts_r3(&p,650,4054.27273);
-	printf("\n.........P. %.12lf\n",p);
-	pres_th_r3(&p,650,0.186343019e7);
-	printf("\n.........P. %.12lf\n",p);
-	
-	printf("\n\n%.6lf\n",psatt(623.15));
-	
-	temp_pr_r3(&t,0.255837018e8,500);
-	printf("\n\n@@@@@@@@@@@@@@%.6lf\n",t); 
-		
-}*/
-/*int main()
-{
-	steam_prop prop;
-	steam_prop_calc_r3(0.255837018e8,650,&prop);
-	print_prop(&prop);
-}
-*/ 
-
-
-

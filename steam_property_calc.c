@@ -1,11 +1,12 @@
-#include<stdio.h>
-#include<math.h>
-#include"steam_property_calc.h"
-#include"region_calc.c"
-#include"region1.c"
-#include"region2.c"
-#include"region3.c"
-#include"region5.c"
+#include <stdio.h>
+#include <math.h>
+#include "if97_general.h"
+#include "region_calc.h"
+#include "region1.h"
+#include "region2.h"
+#include "region3.h"
+#include "region5.h"
+#include "steam_property_calc.h"
 
 static double coeff_visc1[4]={
 	1.67752,2.20462,0.6366564,-0.241605
@@ -49,6 +50,11 @@ static double coeff_thcond4[6][5]={
 	10.2631854662709,12.1358413791395,9.19494865194302,6.1678099993336,4.66861294457414,
 	1.97815050331519,-5.54349664571295,-2.16866274479712,-0.965458722086812,-0.503243546373828,
 };
+
+void print_prop(steam_prop *p_prop)
+{
+	printf("%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n",p_prop->pressure,p_prop->temp,p_prop->spe_vol,p_prop->dens,p_prop->spe_energy,p_prop->spe_entr,p_prop->spe_enth,p_prop->spe_h_v,p_prop->spe_h_p,p_prop->speed_sound);
+}
 
 int hs_find_tsat(double *t, double spe_enth, double spe_entr)
 {
@@ -1269,222 +1275,3 @@ int steam_prop_calc(double pressure, double temp, double *dens,double *cp, doubl
 	*drdp=p_prop.drdp;
 	return 0;
 }
-
-/*int main()
-{
-	double h,s,viscous,thcond,p,t;
-	steam_prop prop,propb;
-	int flag;
-	FILE *fout=fopen("ztest2425.dat","w");
-	FILE *fout2=fopen("ztestpt.dat","w"); 
-	int i=0;
-	
-	steam_prop_calc_pt(0.0035e6,300,&prop,&propb);
-	printf("#%lf,%Lf,%lf,%lf\n",prop.pressure,prop.temp,prop.dens,prop.spe_entr);
-/*	for(s=4.5e3;s<10e3;s=s+100)
-	{
-		for(h=2.4e6;h<2.5e6;h=h+1e4)
-		{
-			flag=steam_prop_calc_hs(h,s,&prop);
-			if(flag==-1)
-			{
-				i++;
-				printf("\n! WARNING: Calculation error.\n! Calculation abort at line #%d of the input file.\n! Please press any key to exit.",i);
-				fprintf(fout,"%lf\t%lf,-1\n",h,s);
-			}
-			else
-			{
-				viscous=steam_visc_calc(prop.temp,prop.dens);
-				thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
-				fprintf(fout,"%.6lf\t%.2lf\t%.8lf\t%.6lf\t%.4lf\t%.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond,prop.vapor_fraction);
-			}	
-		}
-	}*/ 
-	
-/*	for(t=MIN_TEMP+0.01;t<INTER_TEMP1+0.02;t=t+10)
-	{
-		for(p=40e6;p<100e6+101;p=p+1e5)
-		{
-			flag=steam_prop_calc_pt(p,t,&prop,&propb);
-			if(flag==-1)
-			{
-				i++;
-				printf("\n! WARNING: Calculation error.\n! Calculation abort at line #%d of the input file.\n! Please press any key to exit.",i);
-				fprintf(fout2,"%lf\t%lf,-1\n",p,t);
-			}
-			else
-			{
-				viscous=steam_visc_calc(prop.temp,prop.dens);
-				thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
-				fprintf(fout2,"%.6lf\t%.2lf\t%.8lf\t%.6lf\t%.4lf\t%.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\t%.4lf\n",prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond,prop.vapor_fraction);
-			}	
-		}
-	}
-	fclose(fout);
-	fclose(fout);
-	return 0;
-}
-
-
-/*int main()
-{
-	
-	int flag;
-	steam_prop prop,prop2;
-//	printf(".......................%lf\n",calc_sat_pres(450));
-//	flag=steam_prop_calc_px(1e6,0.98,&prop);
-//	printf("%lf,%lf,%lf,%lf\n",prop.spe_vol,prop.spe_entr,prop.spe_enth,prop.vapor_fraction);
-//		flag=steam_prop_calc_tx(450,0.98,&prop);
-//	printf("%lf,%lf,%lf,%lf\n",prop.spe_vol,prop.spe_entr,prop.spe_enth,prop.vapor_fraction);
-//	printf("\n;;;;;; %lf\n",calc_bound23(659.961574204728));
-//	printf("\n;;;;;; %lf\n",calc_bound23(623.15));
-	flag=steam_prop_calc_hs(2600000,5200,&prop);
-	
-	if(flag==-1)
-	{
-		printf("\nEEEEEEEEEEEEEEEEEEEEE!\n");
-	}
-	else
-	{
-		printf("%lf,%lf,%lf\n",prop.pressure,prop.temp,prop.spe_enth);
-	}
-}
-/*int main()
-{
-	int i,j;
-	steam_prop prop;
-	double pres,temp,viscous,thcond;
-	FILE* output=fopen("test_output_pt.dat","w");
-	fprintf(output,"\tPRES\t\tTEMP\tSPE_VOL\t\tDENS\t\tu\t\th\t\ts\t\tCv\t\tCp\t\tVsound\t\tVisc\t\tLamd\n");
-	fprintf(output,"\tMPa\t\tK\tm^3/kg\t\tkg/m^3\t\tkJ/kg\t\tkJ/kg\t\tkJ/(kg*K)\tkJ/(kg*K)\tkJ/(kg*K)\tm/s\t\tPa.s\t\tW/(m*K)\n");
-
-	for(i=0;i<100;i++)
-	{
-		for(j=0;j<200;j++)
-		{
-			pres=1+i*1e6;
-			temp=273.16+j*(1073.15-273.15)/200;
-			steam_prop_calc_pt(pres,temp,&prop);
-			viscous=steam_visc_calc(prop.temp,prop.dens);
-			thcond=steam_thcond_calc(prop.temp,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,prop.pressure);
-			fprintf(output,"%d\t%.6lf\t%.2lf\t%.8lf\t%.6lf\t%.4lf\t%.4lf\t%.8lf\t%.6lf\t%.6lf\t%.4lf\t%.8lf\t%.4lf\n",i,prop.pressure/1e6,prop.temp,prop.spe_vol,prop.dens,prop.spe_energy/1000,prop.spe_enth/1000,prop.spe_entr/1000,prop.spe_h_v/1000,prop.spe_h_p/1000,prop.speed_sound,viscous,thcond);
-		}
-	}
-	return 0;
-} 
-
-
-/*int main()
-{
-	steam_prop prop;
-	double viscous;
-	
-	printf("PRESSURE\tTEMP\tVISCOUS\t\tTHCOND\n");
-	printf("Pa\t\tK\tPa.s\t\tW/(m.K)\n");
-	
-	steam_prop_calc_orig(20e6,620,&prop);
-	viscous=steam_visc_calc(620,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",20e6,620.0,viscous,steam_thcond_calc(620,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,20e6));
-
-	steam_prop_calc_orig(50e6,620,&prop);
-	viscous=steam_visc_calc(620,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",50e6,620.0,viscous,steam_thcond_calc(620,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,50e6));
-
-	steam_prop_calc_orig(0.3e6,650,&prop);
-	viscous=steam_visc_calc(650,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",0.3e6,650.0,viscous,steam_thcond_calc(650,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,0.3e6));
-
-	steam_prop_calc_orig(50e6,800,&prop);
-	viscous=steam_visc_calc(800,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",50e6,800.0,viscous,steam_thcond_calc(800,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,50e6));
-
-	steam_prop_calc_orig(21.984062713427e6,647.35,&prop);
-	viscous=steam_visc_calc(647.35,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",21.984062713427e6,647.35,viscous,steam_thcond_calc(647.35,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,21.984062713427e6));
-
-	steam_prop_calc_orig(22.132160017547e6,647.35,&prop);
-	viscous=steam_visc_calc(647.35,prop.dens);
-	printf("%.2lf\t%.2lf\t%.9lf\t%.9lf\n",22.132160017547e6,647.35,viscous,steam_thcond_calc(647.35,prop.dens,viscous,prop.spe_h_p,prop.spe_h_v,prop.drdp,22.132160017547e6));
-
-}
-
-
-/*int main()
-{
-	double dens,n1,n2;
-	int i;
-	for(i=1;i<50;i++)
-	{
-		steam_prop_calc(101325*i,300,&dens,&n1,&n2);
-		n1=101325*i;
-		printf("%lf,%lf\n",n1,dens);
-	}
-	
-
-}
-	
-/*	double temp[4]={
-		300,500,700,900
-	};
-	double pres[9]={
-		100,10000,1e6,3e6,5e6,10e6,20e6,50e6,90e6
-	};
-	steam_prop prop;
-	double pres_cond, temp_cond;
-	int i,j;
-	
-	steam_temp_calc_ph(&pres_cond,0.5e6,0.521976332e7);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,8e6,0.520609634e7);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,8e6,0.658380291e7);
-	printf("%.4lf\n",pres_cond);
-	
-	steam_temp_calc_ph(&pres_cond,0.255837018e8,0.186343019e7);
-	printf("%.4lf\n",pres_cond);
-//	temp_ph_r3(&pres_cond,0.222930643e8,0.237512401e7);
-//	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,0.222930643e8,0.237512401e7);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,0.783095639e8,0.225868845e7);
-	printf("%.4lf\n",pres_cond);
-	
-	
-	steam_temp_calc_ph(&pres_cond,3e6,4e6);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,25e6,3.5e6);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,60e6,2.7e6);
-	printf("%.4lf\n",pres_cond);
-	
-	steam_temp_calc_ph(&pres_cond,3e6,5e5);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,80e6,5e5);
-	printf("%.4lf\n",pres_cond);
-	steam_temp_calc_ph(&pres_cond,80e6,15e5);
-	printf("%.4lf\n",pres_cond);
-/*	FILE *p_file=fopen("_test_SPC.dat","w+");
-//	fprintf(p_file,"P\\T\t\t");
-//	for(i=0;i<4;i++)
-//	{
-//		fprintf(p_file,"%.4lf\t",temp[i]);
-//	}
-//	fprintf(p_file,"\n");
-	for(i=0;i<9;i++)
-	{
-		pres_cond=pres[i];
-//		fprintf(p_file,"%.2e\t",pres_cond);
-		for(j=0;j<4;j++)
-		{
-			temp_cond=temp[j];			
-			steam_prop_calc(pres_cond,temp_cond,&prop);
-			fprintf(p_file,"%.6lf\t%.6lf\n",prop.temp,prop.spe_energy/prop.spe_h_v);
-		}
-	}
-	fclose(p_file);
-}*/
-
-
-
-/*
-*/

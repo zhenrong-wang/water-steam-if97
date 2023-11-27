@@ -1,7 +1,14 @@
-#include<stdio.h>
-#include<math.h>
-#include "steam_property_calc.h"
-#define MAX_ITER_NUMSR2 200
+/*
+ * This code is distributed under the license: MIT License
+ * Originally written by Zhenrong WANG
+ * mailto: zhenrongwang@live.com
+ */
+
+#include <stdio.h>
+#include <math.h>
+#include "if97_general.h"
+#include "region_calc.h"
+#include "region2.h"
 
 static double region2_coeff0[9][3]={
 	1,0,-0.96927686500217e1,
@@ -1176,8 +1183,8 @@ int pt_hs_r2(double* pres, double* temp, double spe_enth, double spe_entr)
 			maxd=fabs(dp);
 		}
 		i++;
-	}while(maxd>1e-8&&i<MAX_ITER_NUMS);
-	if(i==MAX_ITER_NUMS)
+	}while(maxd>1e-8&&i<MAX_ITER_NUMSR2);
+	if(i==MAX_ITER_NUMSR2)
 	{
 		*pres=pres_ini;
 		*temp=temp_ini;
@@ -1191,102 +1198,3 @@ int pt_hs_r2(double* pres, double* temp, double spe_enth, double spe_entr)
 		return 0;
 	}	
 }
-
-
-/*int main()
-{
-	double pres,temp,dens;
-	steam_prop prop;
-	
-/*	steam_prop_calc_r2(0.0035e6,300,&prop);
-	printf("%lf\n%lf\n%lf\n%lf\n%lf\n%lf\n\n",prop.spe_vol,prop.spe_energy,prop.spe_entr,prop.spe_enth,prop.spe_h_p,prop.speed_sound);
-	steam_prop_calc_r2(0.0035e6,700,&prop);
-	printf("%lf\n%lf\n%lf\n%lf\n%lf\n%lf\n\n",prop.spe_vol,prop.spe_energy,prop.spe_entr,prop.spe_enth,prop.spe_h_p,prop.speed_sound);
-	steam_prop_calc_r2(30e6,700,&prop);
-	printf("%lf\n%lf\n%lf\n%lf\n%lf\n%lf\n\n",prop.spe_vol,prop.spe_energy,prop.spe_entr,prop.spe_enth,prop.spe_h_p,prop.speed_sound);
-	
-	pres_hs_r3(&pres,2800,6.5e3);
-	printf("\n\n%.12lf\n",pres);
-	temp_pr_r2(&temp,0.0035e6,1/0.394913866e2);
-	printf("\n%.12lf\n",temp);
-	temp_pr_r2(&temp,0.0035e6,1/0.923015898e2);
-	printf("\n%.12lf\n",temp);
-	temp_pr_r2(&temp,30e6,100/0.542946619);
-	printf("\n%.12lf\n",temp);
-	
-	temp_pu_r2(&temp,0.0035e6,0.241169160e7);
-	printf("\n%.12lf\n",temp);
-	temp_pu_r2(&temp,0.0035e6,0.301262819e7);
-	printf("\n%.12lf\n",temp);
-	temp_pu_r2(&temp,30e6,0.246861076e7);
-	printf("\n%.12lf\n",temp);
-	
-	pres_tr_r2(&pres,300,1/0.394913866e2);
-	printf("\n%.12lf\n",pres);
-	pres_tr_r2(&pres,700,1/0.923015898e2);
-	printf("\n%.12lf\n",pres);
-	pres_tr_r2(&pres,700,100/0.542946619);
-	printf("\n%.12lf\n",pres);
-	
-	pres_tu_r2(&pres,300,0.241169160e7);
-	printf("\n%.12lf\n",pres);
-	pres_tu_r2(&pres,700,0.301262819e7);
-	printf("\n%.12lf\n",pres);
-	pres_tu_r2(&pres,700,0.246861076e7);
-	printf("\n%.12lf\n",pres);
-
-    pres_th_r2(&pres,300,0.254991145e7);
-	printf("\n%.12lf\n",pres);
-	pres_th_r2(&pres,700,0.333568375e7);
-	printf("\n%.12lf\n",pres);
-	pres_th_r2(&pres,700,0.263149474e7);
-	printf("\n%.12lf\n",pres);*/
-	
-/* 	pres_ts_r2(&pres,300,0.852238967e4);
-	printf("\n%.12lf\n",pres);
-	pres_ts_r2(&pres,700,0.101749996e5);
-	printf("\n%.12lf\n",pres);
-	pres_ts_r2(&pres,700,0.517540298e4);
-	printf("\n%.12lf\n",pres);
-	
-	temp_ph_r2(&temp,0.0035e6,0.254991145e7);
-	printf("\n%.12lf\n",temp);
-	temp_ph_r2(&temp,0.0035e6,0.333568375e7);
-	printf("\n%.12lf\n",temp);
-	temp_ph_r2(&temp,30e6,0.263149474e7);
-	printf("\n%.12lf\n",temp);
-	
-	temp_ps_r2(&temp,0.0035e6,0.852238967e4);
-	printf("\n%.12lf\n",temp);
-	temp_ps_r2(&temp,0.0035e6,0.101749996e5);
-	printf("\n%.12lf\n",temp);
-	temp_ps_r2(&temp,30e6,0.517540298e4);
-	printf("\n%.12lf\n",temp);
-	
-	pt_hs_r2(&pres,&temp,0.254991145e7,0.852238967e4);
-	printf("\n%.12lf\t%.12lf\n",pres,temp);
-	pt_hs_r2(&pres,&temp,0.333568375e7,0.101749996e5);
-	printf("\n%.12lf\t%.12lf\n",pres,temp);
-	pt_hs_r2(&pres,&temp,0.263149474e7,0.517540298e4);
-	printf("\n%.12lf\t%.12lf\n",pres,temp);
-}
-
-//int main()
-//{
-//	printf("%lf,%lf,%lf\n%lf,%lf,%lf\n%lf,%lf,%lf\n",temp_ph_r2a(1e3,3e6),temp_ph_r2a(5e6,4e6),temp_ph_r2a(4e7,2.7e6));
-//}
-
-/*void print_prop(steam_prop *p_prop)
-{
-	printf("%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n",p_prop->pressure,p_prop->temp,p_prop->spe_vol,p_prop->dens,p_prop->spe_energy,p_prop->spe_entr,p_prop->spe_enth,p_prop->spe_h_v,p_prop->spe_h_p,p_prop->speed_sound);
-}
-
-int main()
-{
-	steam_prop prop;
-	double pres=1e6;
-	double temp=450;
-	steam_prop_calc_r2(pres,temp,&prop);
-	print_prop(&prop);
-}*/
-

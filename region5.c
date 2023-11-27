@@ -1,7 +1,15 @@
-#include<stdio.h>
-#include<math.h>
-#include "steam_property_calc.h"
-#define MAX_ITER_TIMES_R5 200
+/*
+ * This code is distributed under the license: MIT License
+ * Originally written by Zhenrong WANG
+ * mailto: zhenrongwang@live.com
+ */
+
+
+#include <stdio.h>
+#include <math.h>
+#include "if97_general.h"
+#include "region_calc.h"
+#include "region5.h"
 
 static double region5_coeff0[6][3]={
 	1,0,-0.13179983674201e2,
@@ -686,100 +694,3 @@ int pt_hs_r5(double* pres, double* temp, double spe_enth, double spe_entr)
 	}
 	return -1;
 }
-
-/*void print_prop(steam_prop *p_prop)
-{
-	printf("%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n%.14lf\n",p_prop->pressure,p_prop->temp,p_prop->spe_vol,p_prop->dens,p_prop->spe_energy,p_prop->spe_entr,p_prop->spe_enth,p_prop->spe_h_v,p_prop->spe_h_p,p_prop->speed_sound);
-}
-
-int main()
-{
-	steam_prop prop;
-	double p,t;
-	steam_prop_calc_r5(0.5e6,1500,&prop);
-	print_prop(&prop);
-	steam_prop_calc_r5(30e6,1500,&prop);
-	print_prop(&prop);
-	steam_prop_calc_r5(30e6,2000,&prop);
-	print_prop(&prop);
-	pres_tr_r5(&p,1500,1/1.3845509);
-	printf("\n...%lf\n",p);
-		pres_tr_r5(&p,1500,1/0.0230761299);
-	printf("\n...%lf\n",p);
-		pres_tr_r5(&p,2000,1/0.0311385219);
-	printf("\n...%lf\n",p);
-	
-		pres_tu_r5(&p,1500,4527.4931e3);
-	printf("\n...%lf\n",p);
-		pres_tu_r5(&p,1500,4474.95214e3);
-	printf("\n...%lf\n",p);
-		pres_tu_r5(&p,2000,5637.07038e3);
-	printf("\n...%lf\n",p);
-	
-			pres_th_r5(&p,1500,5219.76855e3);
-	printf("\n...%lf\n",p);
-		pres_th_r5(&p,1500,5167.23514e3);
-	printf("\n...%lf\n",p);
-		pres_th_r5(&p,2000,6571.22064e3);
-	printf("\n...%lf\n",p);
-	
-	
-				pres_ts_r5(&p,1500,9.65408875e3);
-	printf("\n...%lf\n",p);
-		pres_ts_r5(&p,1500,7.72970133e3);
-	printf("\n...%lf\n",p);
-		pres_ts_r5(&p,2000,8.53640523e3);
-	printf("\n...%lf\n",p);
-	
-	
-	temp_pr_r5(&t,0.5e6,1/1.3845509);
-	printf("\n...%lf\n",t);
-	temp_pr_r5(&t,30e6,1/0.0230761299);
-	printf("\n...%lf\n",t);
-		temp_pr_r5(&t,30e6,1/0.0311385219);
-	printf("\n...%lf\n",t);
-	
-		temp_pu_r5(&t,0.5e6,4527.4931e3);
-	printf("\n...%lf\n",t);
-	temp_pu_r5(&t,30e6,4474.95214e3);
-	printf("\n...%lf\n",t);
-		temp_pu_r5(&t,30e6,5637.07038e3);
-	printf("\n...%lf\n",t);
-	
-			temp_ph_r5(&t,0.5e6,5219.76855e3);
-	printf("\n...%lf\n",t);
-	temp_ph_r5(&t,30e6,5167.23514e3);
-	printf("\n...%lf\n",t);
-		temp_ph_r5(&t,30e6,6571.22064e3);
-	printf("\n...%lf\n",t);
-	
-				temp_ps_r5(&t,0.5e6,9.65408875e3);
-	printf("\n...%lf\n",t);
-	temp_ps_r5(&t,30e6,7.72970133e3);
-	printf("\n...%lf\n",t);
-		temp_ps_r5(&t,30e6,8.53640523e3);
-	printf("\n...%lf\n",t);
-	
-	printf("\t%d\n",pt_hs_r5(&p,&t,5219.76855e3,9.65408875e3));
-	printf("\n//////%lf,%lf\n",p,t);
-		printf("\t%d\n",pt_hs_r5(&p,&t,5167.23514e3,7.72970133e3));
-	printf("\n//////%lf,%lf\n",p,t);
-		pt_hs_r5(&p,&t,6571.22064e3,8.53640523e3);
-	printf("\n//////%lf,%lf\n",p,t);
-	
-		steam_prop_calc_r5(59204.842478,1505.193671,&prop);
-	print_prop(&prop);
-}
-¡Á/ 
-
-
-/*int main()
-{
-	steam_prop prop;
-	double pres=30e6;
-	double temp=1500;
-	steam_prop_calc_r5(pres,temp,&prop);
-	print_prop(&prop);
-}
-
-*/

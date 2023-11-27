@@ -1,6 +1,13 @@
+/*
+ * This code is distributed under the license: MIT License
+ * Originally written by Zhenrong WANG
+ * mailto: zhenrongwang@live.com
+ */
+
 #include <stdio.h>
-#include<math.h>
-#include "steam_property_calc.h"
+#include <math.h>
+#include "if97_general.h"
+#include "region_calc.h"
 
 static double sat_coeff[10]={
 	0.11670521452767e4,-0.72421316703206e6,-0.17073846940092e2,0.12020824702470e5,-0.32325550322333e7,0.14915108613530e2,-0.48232657361591e4,0.40511340542057e6,-0.23855557567849,0.65017534844798e3

@@ -31,7 +31,7 @@ You need a C compiler to build.
 ### 3.1.2 Build Guide
 
 1. Use `git` to clone this code: `git clone https://github.com/zhenrong-wang/water-steam-if97.git`
-2. Build command example: `gcc ws-if97.c -o my-if97.exe -lm`
+2. Build command example: `gcc *.c -o my-if97.exe -lm`
 
 Note: the `-lm` may not be valid for Windows or macOS. It is necessary for GNU/Linux distros.
 
