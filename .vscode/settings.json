@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "steam_property_calc.h": "c",
+        "stdio.h": "c",
+        "region1.h": "c",
+        "if97_general.h": "c",
+        "region3.h": "c",
+        "region_calc.h": "c"
+    }
+}
