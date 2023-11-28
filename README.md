@@ -37,6 +37,28 @@ Note: the `-lm` may not be valid for Windows or macOS. It is necessary for GNU/L
 
 ## 3.2 Run
 
+### Run the Test Data
+
+Suppose you have followed the steps above and built the my-if97.exe in the source code folder.
+
+- `cd test`
+- `../my-if97.exe` (**UNIX-like OS**) or `..\my-if97.exe` (**Microsoft Windows**)
+
+If you see the output below, congrats, you've built the binary successfully.
+
+    ...
+
+    1       25000000.00000000       873.00000000
+    1       23960000.00000000       811.00000000
+    1       6000000.00000000        811.00000000
+    1       6000000.00000000        573.00000000
+
+    # Calculation finished. Please check _properties.dat for results.
+    # Press any key to exit.
+
+    @ Any problems found, please contact the author.
+    @ Zhenrong Wang, zhenrongwang@live.com.
+
 ### An Example for UNIX-like OS:
 
 Suppose the working directory is `/home/amber/water-steam/`

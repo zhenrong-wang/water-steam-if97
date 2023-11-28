@@ -19,7 +19,7 @@ int welcome(void)
 	printf("/*               Water and Steam Properties Calculation               */\n");
 	printf("/*                   VERSION 1.2(beta) LICENSE: MIT                   */\n");
 	printf("/* WANG ZHENRONG (Edison WANG), reserves all rights of this program.  */\n");
-	printf("/* Contacts: zhenrong_w@163.com(email).  K495458966(wechat).          */\n");
+	printf("/* Contacts: zhenrongwang@live.com(email).  K495458966(wechat).       */\n");
 	printf("/* Main function: calculating properties by given two values:         */\n");
 	printf("/*       1-pt, 2-pr, 3-pu, 4-ph, 5-ps, 6-tr, 7-tu, 8-th, 9-ts, 10-hs. */\n"); 
 	printf("/*       11-px, 12-tx (x - vapor fraction).                           */\n"); 
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 	if(fin==NULL)
 	{
 		printf("\n! FATAL ERROR: input file not found.\n! Program abort.\n! Please press any key to exit.");
-		printf("\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrong_w@163.com, K495458966(wechat).\n@ All rights reserved.\n");		
+		printf("\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrongwang@live.com.\n");		
 		fflush(stdin);
 		getchar();
 		return -1;
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 	if(fout==NULL)
 	{
 		printf("\n! FATAL ERROR: cannot creat output file.\n! Program abort.\n! Please press any key to exit.");
-		printf("\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrong_w@163.com, K495458966(wechat).\n@ All rights reserved.\n");
+		printf("\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrongwang@live.com.\n");
 		fclose(fin);
 		fflush(stdin);
 		getchar();
@@ -138,7 +138,7 @@ int main(int argc, char** argv)
 		}	
 	}
 	
-	printf("\n\n# Calculation finished. Please check _properties.dat for results.\n# Press any key to exit.\n\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrong_w@163.com, K495458966(wechat).\n@ All rights reserved.\n");
+	printf("\n\n# Calculation finished. Please check _properties.dat for results.\n# Press any key to exit.\n\n@ Any problems found, please contact the author.\n@ Zhenrong Wang, zhenrongwang@live.com.\n");
 	fclose(fin);
 	fclose(fout);
 	fflush(stdin);
